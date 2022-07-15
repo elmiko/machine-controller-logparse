@@ -16,22 +16,31 @@ limitations under the License.
 
 package analyzers
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
-type BasicInfoAnalyzer struct {
-	entries int
+type GeneralInfoAnalyzer struct {
+	numEntries     int
+	firstTimestamp time.Time
+	lastTimestamp  time.Time
 }
 
-func (bia BasicInfoAnalyzer) Analyze(context AnalyzerContext) string {
-	bia.entries = len(context.LogEntries())
-	summary := fmt.Sprintf("Log entries processed: %d", bia.entries)
+func (a GeneralInfoAnalyzer) Analyze(context AnalyzerContext) string {
+	a.numEntries = len(context.LogEntries())
+	a.firstTimestamp = context.LogEntries()[0].Timestamp()
+	a.lastTimestamp = context.LogEntries()[a.numEntries-1].Timestamp()
+	summary := fmt.Sprintf("Log entries processed: %d\n", a.numEntries)
+	summary += fmt.Sprintf("First timestamp: %s\n", a.firstTimestamp)
+	summary += fmt.Sprintf("Last timestamp: %s\n", a.lastTimestamp)
 	return summary
 }
 
-func (bia BasicInfoAnalyzer) Name() string {
+func (a GeneralInfoAnalyzer) Name() string {
 	return "Basic Info Analyzer"
 }
 
-func buildBasicInfoAnalyzer() Analyzer {
-	return BasicInfoAnalyzer{}
+func buildGeneralInfoAnalyzer() Analyzer {
+	return GeneralInfoAnalyzer{}
 }

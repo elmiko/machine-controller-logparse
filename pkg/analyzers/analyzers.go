@@ -26,7 +26,7 @@ import (
 // will use. When creating a new analyzer, it must have a builder function
 // `func () Analyzer` which is present in this list for it to be utilized.
 var analyzerBuilders []func() Analyzer = []func() Analyzer{
-	buildBasicInfoAnalyzer,
+	buildGeneralInfoAnalyzer,
 }
 
 // An interface for individual analyzers

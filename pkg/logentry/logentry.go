@@ -41,6 +41,10 @@ func (l *LogEntry) AppendLine(line string) {
 	l.message += line
 }
 
+func (l LogEntry) Timestamp() time.Time {
+	return l.timestamp
+}
+
 func newLogEntry(line string) (LogEntry, error) {
 	ret := LogEntry{}
 	var timestamp time.Time
