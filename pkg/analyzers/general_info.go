@@ -18,22 +18,18 @@ package analyzers
 
 import (
 	"fmt"
-	"time"
 )
 
 type GeneralInfoAnalyzer struct {
-	numEntries     int
-	firstTimestamp time.Time
-	lastTimestamp  time.Time
 }
 
 func (a GeneralInfoAnalyzer) Analyze(context AnalyzerContext) string {
-	a.numEntries = len(context.LogEntries())
-	a.firstTimestamp = context.LogEntries()[0].Timestamp()
-	a.lastTimestamp = context.LogEntries()[a.numEntries-1].Timestamp()
-	summary := fmt.Sprintf("Log entries processed: %d\n", a.numEntries)
-	summary += fmt.Sprintf("First timestamp: %s\n", a.firstTimestamp)
-	summary += fmt.Sprintf("Last timestamp: %s\n", a.lastTimestamp)
+	numEntries := len(context.LogEntries())
+	firstTimestamp := context.LogEntries()[0].Timestamp()
+	lastTimestamp := context.LogEntries()[numEntries-1].Timestamp()
+	summary := fmt.Sprintf("Log entries processed: %d\n", numEntries)
+	summary += fmt.Sprintf("First timestamp: %s\n", firstTimestamp)
+	summary += fmt.Sprintf("Last timestamp: %s\n", lastTimestamp)
 	return summary
 }
 
