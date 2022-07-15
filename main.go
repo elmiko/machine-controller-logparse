@@ -22,8 +22,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/openshift/machine-api-operator/hack/machine-controller-logparse/pkg/analyzers"
-	"github.com/openshift/machine-api-operator/hack/machine-controller-logparse/pkg/logentry"
+	"github.com/elmiko/machine-controller-logparse/pkg/analyzers"
+	"github.com/elmiko/machine-controller-logparse/pkg/logentry"
 )
 
 func print_usage() {

@@ -19,7 +19,7 @@ package analyzers
 import (
 	"fmt"
 
-	"github.com/openshift/machine-api-operator/hack/machine-controller-logparse/pkg/logentry"
+	"github.com/elmiko/machine-controller-logparse/pkg/logentry"
 )
 
 // This is the list of functions which create all the analyzers that a runner
