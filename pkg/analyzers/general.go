@@ -34,7 +34,7 @@ func (a GeneralInfoAnalyzer) Analyze(context AnalyzerContext) string {
 }
 
 func (a GeneralInfoAnalyzer) Name() string {
-	return "Basic Info Analyzer"
+	return "General Info Analyzer"
 }
 
 func buildGeneralInfoAnalyzer() Analyzer {
