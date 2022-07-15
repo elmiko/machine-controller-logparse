@@ -29,7 +29,7 @@ type MachinesAnalyzer struct {
 func (a MachinesAnalyzer) Analyze(context AnalyzerContext) string {
 	for _, e := range context.LogEntries() {
 		// check for reconcile message
-		if strings.Contains(e.Message(), ": reconciling Machine") {
+		if strings.Contains(e.Message(), reconcilingMachine) {
 			info := strings.SplitN(e.Message(), ":", 2)
 			if len(info) != 2 {
 				// this means it did not parse the message into 2 parts, we should continue

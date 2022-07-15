@@ -22,6 +22,10 @@ import (
 	"github.com/elmiko/machine-controller-logparse/pkg/logentry"
 )
 
+const (
+	reconcilingMachine = ": reconciling Machine"
+)
+
 // This is the list of functions which create all the analyzers that a runner
 // will use. When creating a new analyzer, it must have a builder function
 // `func () Analyzer` which is present in this list for it to be utilized.
@@ -30,6 +34,7 @@ import (
 var analyzerBuilders []func() Analyzer = []func() Analyzer{
 	buildGeneralInfoAnalyzer,
 	buildMachinesAnalyzer,
+	buildAverageReconcileDurationAnalyzer,
 }
 
 // An interface for individual analyzers
