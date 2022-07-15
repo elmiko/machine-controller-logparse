@@ -25,8 +25,11 @@ import (
 // This is the list of functions which create all the analyzers that a runner
 // will use. When creating a new analyzer, it must have a builder function
 // `func () Analyzer` which is present in this list for it to be utilized.
+// The ordering of this list is also important as each Analyzer can modify
+// the AnalyzerContext for subsequent Analyzers to use.
 var analyzerBuilders []func() Analyzer = []func() Analyzer{
 	buildGeneralInfoAnalyzer,
+	buildMachinesAnalyzer,
 }
 
 // An interface for individual analyzers
