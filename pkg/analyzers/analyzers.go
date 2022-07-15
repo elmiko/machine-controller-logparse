@@ -56,23 +56,28 @@ func (ac AnalyzerContext) LogEntries() []logentry.LogEntry {
 	return ac.logentries
 }
 
+type AnalyzerResult struct {
+	name    string
+	message string
+}
+
 type AnalyzerRunner struct {
 	context   AnalyzerContext
 	analyzers []Analyzer
-	results   map[string]string
+	results   []AnalyzerResult
 }
 
-func (r AnalyzerRunner) RunAllAnalyzers() {
+func (r *AnalyzerRunner) RunAllAnalyzers() {
 	for _, analyzer := range r.analyzers {
-		r.results[analyzer.Name()] = analyzer.Analyze(r.context)
+		r.results = append(r.results, AnalyzerResult{name: analyzer.Name(), message: analyzer.Analyze(r.context)})
 	}
 }
 
 func (r AnalyzerRunner) PrintAllSummaries() {
-	for k, v := range r.results {
-		fmt.Printf("Results for %s\n", k)
+	for _, r := range r.results {
+		fmt.Printf("Results for %s\n", r.name)
 		fmt.Println("====================")
-		fmt.Printf("%s\n", v)
+		fmt.Printf("%s\n", r.message)
 	}
 }
 
@@ -83,7 +88,7 @@ func BuildAnalyzerRunner(logentries []logentry.LogEntry) AnalyzerRunner {
 
 	runner := AnalyzerRunner{
 		context: ctx,
-		results: map[string]string{},
+		results: []AnalyzerResult{},
 	}
 	for _, builder := range analyzerBuilders {
 		analyzer := builder()
